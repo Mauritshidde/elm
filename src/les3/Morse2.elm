@@ -1,4 +1,4 @@
-module Morse2 exposing(..)
+module Main exposing(..)
 import Basics
 import List exposing (tail, drop)
 import Dict exposing (Dict)

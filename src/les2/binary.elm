@@ -1,4 +1,4 @@
-module Binary exposing(..)
+module Main exposing(..)
 import Basics
 import List exposing (tail, drop)
 
