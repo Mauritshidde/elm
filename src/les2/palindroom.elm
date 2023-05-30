@@ -1,4 +1,4 @@
-module palindroom exposing(..)
+module Main exposing(..)
 import Basics
 import List exposing (tail, drop)
 
@@ -20,8 +20,8 @@ toString string =
     in
         String.toList val
 
-checkIfPalinHelper:List Char -> Int -> Int -> Bool
-checkIfPalinHelper list index1 index2 = 
+palindroomHelper:List Char -> Int -> Int -> Bool
+palindroomHelper list index1 index2 = 
     if index1 >= (List.length list)-1 then
         if (getElementFromList list index1 0) == (getElementFromList list index2 0) then
             True
@@ -33,15 +33,15 @@ checkIfPalinHelper list index1 index2 =
                 newIndex1 = index1 + 1
                 newIndex2 = index2 - 1
             in
-                checkIfPalinHelper list newIndex1 newIndex2
+                palindroomHelper list newIndex1 newIndex2
         else
             False
 
 
-checkIfPalin:String -> Bool
-checkIfPalin word = 
+palindroom:String -> Bool
+palindroom word = 
     let 
         list = toString word
         endIndex = (List.length list) - 1
     in
-        checkIfPalinHelper list 0 endIndex
+        palindroomHelper list 0 endIndex

@@ -51,28 +51,25 @@ toString string =
     in
         String.toList val
 
-decodeMorseHelper:List String -> String -> String
-decodeMorseHelper list string= 
+decodeMorseHelper:List String -> String
+decodeMorseHelper list = 
     let 
         firstElement = List.head list
         newList = drop 1 list
         notMaybe = Maybe.withDefault "" firstElement
-        newString = string ++ String.fromChar (Maybe.withDefault ' ' (Dict.get notMaybe morseDict))
+        
     in
         if (List.length list) == 0 then
-            newString
+            ""
         else 
-            decodeMorseHelper newList newString
-
-        -- Maybe.withDefault ' ' firstElement
+            let 
+                newString = (decodeMorseHelper newList) ++ String.fromChar (Maybe.withDefault ' ' (Dict.get notMaybe morseDict))
+            in
+                newString
 
 decodeMorse:String -> String
 decodeMorse word = 
     let 
-        -- list = toString word
         list = String.split " " word
     in
-        decodeMorseHelper list ""
-
-
-            
+        decodeMorseHelper list

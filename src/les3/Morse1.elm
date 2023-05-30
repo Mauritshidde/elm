@@ -1,4 +1,4 @@
-module Morse1 exposing(..)
+module Main exposing(..)
 import Basics
 import List exposing (tail, drop)
 import Dict exposing (Dict)
@@ -51,25 +51,24 @@ toString string =
     in
         String.toList val
 
-toMorseHelper:List Char -> String -> String
-toMorseHelper list string= 
+toMorseHelper:List Char -> String
+toMorseHelper list = 
     let 
         firstElement = List.head list
         newList = drop 1 list
         notMaybe = Maybe.withDefault ' ' firstElement
-        newString = String.append string (Maybe.withDefault "" (Dict.get notMaybe morseDict))
-        addSpaces = String.append newString " "
     in
         if (List.length list) == 0 then
-            newString
+            ""
         else 
-            toMorseHelper newList addSpaces
-
-        -- Maybe.withDefault ' ' firstElement
+            let 
+                newString = String.append " " (String.append (Maybe.withDefault "" (Dict.get notMaybe morseDict)) (toMorseHelper newList))
+            in
+                newString
 
 toMorse:String -> String
 toMorse word = 
     let 
         list = toString word
     in
-        toMorseHelper list ""
+        toMorseHelper list

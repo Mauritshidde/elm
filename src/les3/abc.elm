@@ -1,4 +1,4 @@
-module abc exposing(..)
+module Main exposing(..)
 import Basics
 
 abc:Float -> Float -> Float -> (Float, Float)
