@@ -41,7 +41,7 @@ palindroomHelper list index1 index2 =
 palindroom:String -> Bool
 palindroom word = 
     let 
-        list = toString word
+        list = String.toList word
         endIndex = (List.length list) - 1
     in
         palindroomHelper list 0 endIndex

@@ -33,17 +33,27 @@ koch a b limit points =
             atan2 dy dx
 
         p1 =
-            Point 0 50
+            Point (a.x + dx / 3) (a.y + dy / 3)
+
         p2 =
-            Point 0 100
+            Point
+                (p1.x
+                    + (cos (angle - pi / 3))
+                    * unit
+                )
+                (p1.y
+                    + (sin (angle - pi / 3))
+                    * unit
+                )
+
         p3 =
-            Point 0 150
+            Point (b.x - dx / 3) (b.y - dy / 3)
         p4 =
-            Point 10 200
+            Point (b.x - dx / 3) (b.y - dy / 3)
         p5 =
-            Point 50 200
+            Point (b.x - dx / 3) (b.y - dy / 3)
         p6 =
-            Point 20 150
+            Point (b.x - dx / 3) (b.y - dy / 3)
     in
         if limit > 1 then
             let
@@ -66,27 +76,27 @@ koch a b limit points =
 
 startP1 : Point
 startP1 =
-    Point -100 -10
+    Point -200 -150
 
 startP2 : Point
 startP2 =
-    Point -100 -200
+    Point -100 150
 
 startP3 : Point
 startP3 =
-    Point -100 -250
+    Point 100 150
     
 startP4 : Point
 startP4 =
-    Point -110 -300
+    Point 200 -150
 
 startP5 : Point
 startP5 =
-    Point -150 -300
+    Point 100 0
 
 startP6 : Point
 startP6 =
-    Point -120 -250
+    Point -100 0
 
 pointsListToString: List Point -> String
 pointsListToString l =
@@ -119,7 +129,6 @@ view model =
 
                  [ 
                     polyline [ fill "black", stroke "red", points path] []
-                    -- polyline [ fill "black", stroke "red", points startP2] []
 
                 ]
 

@@ -33,17 +33,23 @@ koch a b limit points =
             atan2 dy dx
 
         p1 =
-            Point 0 50
+            Point (a.x + dx / 3) (a.y + dy / 3)
+
         p2 =
-            Point 0 100
+            Point
+                (p1.x
+                    + (cos (angle - pi / 3))
+                    * unit
+                )
+                (p1.y
+                    + (sin (angle - pi / 3))
+                    * unit
+                )
+
         p3 =
-            Point 0 150
+            Point (b.x - dx / 3) (b.y - dy / 3)
         p4 =
-            Point 10 200
-        p5 =
-            Point 50 200
-        p6 =
-            Point 20 150
+            Point (a.x + dx / 3) (a.y + dy / 3)
     in
         if limit > 1 then
             let
@@ -56,37 +62,28 @@ koch a b limit points =
                     , koch p1 p2 l points
                     , koch p2 p3 l points
                     , koch p3 p4 l points
-                    , koch p4 p5 l points
-                    , koch p5 p6 l points
-                    , koch p6 b l points
+                    , koch p4 b l points
                     ]
         else
-            a :: p1 :: p2 :: p3 :: p4 :: p5 :: p6 :: b :: points
+            a :: p1 :: p2 :: p3 :: p4 :: b :: points
 
 
 startP1 : Point
 startP1 =
-    Point -100 -10
+    Point 0 -150
 
 startP2 : Point
 startP2 =
-    Point -100 -200
+    Point 0 0
+
 
 startP3 : Point
 startP3 =
-    Point -100 -250
+    Point 150 -150
     
 startP4 : Point
 startP4 =
-    Point -110 -300
-
-startP5 : Point
-startP5 =
-    Point -150 -300
-
-startP6 : Point
-startP6 =
-    Point -120 -250
+    Point 150 0
 
 pointsListToString: List Point -> String
 pointsListToString l =
@@ -97,7 +94,7 @@ pointsListToString l =
       let
         h = withDefault (Point 0 0) (head (take 1 l))
       in
-        (String.fromFloat h.x) ++ "," ++ (String.fromFloat h.y) ++ " " ++ (pointsListToString (drop 1 l))
+        (String.fromFloat h.x)  ++ "," ++ (String.fromFloat h.y) ++ " " ++ (pointsListToString (drop 1 l))
 
 main = Browser.sandbox { init = init, update = update, view = view }
 
@@ -109,7 +106,7 @@ init = { content = "1" }
 view model =
    let
         path =
-            pointsListToString (koch startP1 startP2 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP2 startP3 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP3 startP4 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP4 startP5 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP5 startP6 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP6 startP1 (Maybe.withDefault 1 (String.toInt model.content)) [])
+            pointsListToString (koch startP1 startP2 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP2 startP3 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP3 startP4 (Maybe.withDefault 1 (String.toInt model.content)) []) ++ pointsListToString (koch startP4 startP1 (Maybe.withDefault 1 (String.toInt model.content)) [])
    in
         div []
           [ input [ placeholder "numbers separated by ,", value model.content, onInput Change ] []
@@ -118,9 +115,7 @@ view model =
            [ g [ transform "translate(100, 100) scale(0.5,-0.5)" ]
 
                  [ 
-                    polyline [ fill "black", stroke "red", points path] []
-                    -- polyline [ fill "black", stroke "red", points startP2] []
-
+                    polyline [ fill "black ", stroke "red", points path] []
                 ]
 
            ]

@@ -63,9 +63,9 @@ decodeMorseHelper list =
             ""
         else 
             let 
-                newString = (decodeMorseHelper newList) ++ String.fromChar (Maybe.withDefault ' ' (Dict.get notMaybe morseDict))
+                morseString = (decodeMorseHelper newList) ++ String.fromChar (Maybe.withDefault ' ' (Dict.get notMaybe morseDict))
             in
-                newString
+                morseString
 
 decodeMorse:String -> String
 decodeMorse word = 

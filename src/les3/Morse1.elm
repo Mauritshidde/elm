@@ -62,9 +62,9 @@ toMorseHelper list =
             ""
         else 
             let 
-                newString = String.append " " (String.append (Maybe.withDefault "" (Dict.get notMaybe morseDict)) (toMorseHelper newList))
+                morseString = String.append " " (String.append (Maybe.withDefault "" (Dict.get notMaybe morseDict)) (toMorseHelper newList))
             in
-                newString
+                morseString
 
 toMorse:String -> String
 toMorse word = 
